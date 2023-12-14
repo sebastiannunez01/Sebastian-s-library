@@ -1,0 +1,30 @@
+x = 10
+y = 15
+
+result = x == y
+print(result)
+
+a=8
+b=6
+result= a !=b
+print(result)
+
+e=12
+f=14
+result= e < f
+print(result)
+
+m=20
+n=15
+result= m > n
+print(result)
+
+i= 40
+j= 35
+result= i <= j
+print(result)
+
+t= 50
+u= 45
+result= t >= u
+print(result)
