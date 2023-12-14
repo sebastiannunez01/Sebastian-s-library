@@ -1,0 +1,221 @@
+import pandas as pd
+
+# Read data from CSV files
+boys_df = pd.read_csv('boys.csv')
+girls_df = pd.read_csv('girls.csv')
+race_df = pd.read_csv('race.csv')
+
+# Process and validate data
+
+# Example: Checking for missing values
+if boys_df.isnull().values.any() or girls_df.isnull().values.any() or race_df.isnull().values.any():
+    print("Warning: There are missing values in the data.")
+
+# Introduce a gender column
+boys_df['Gender'] = 'Male'
+girls_df['Gender'] = 'Female'
+
+# Consolidate data
+all_students_df = pd.concat([boys_df, girls_df], ignore_index=True)
+
+# Merge data with the race.csv file based on a common identifier, e.g., 'StudentID'
+final_data = pd.merge(all_students_df, race_df, on='StudentID', how='inner')
+
+# Print the final consolidated data
+print(final_data)
+
+import sqlite3
+import pandas as pd
+
+# Connect to SQLite3 database (create a new one if not exists)
+conn = sqlite3.connect('sports_database.db')
+cursor = conn.cursor()
+
+# Create 'athletes' table
+cursor.execute('''
+    CREATE TABLE athletes (
+        athlete_id INTEGER PRIMARY KEY,
+        name TEXT NOT NULL,
+        gender TEXT,
+        school_id INTEGER,
+        FOREIGN KEY (school_id) REFERENCES schools (school_id)
+    )
+''')
+
+# Create 'schools' table
+cursor.execute('''
+    CREATE TABLE schools (
+        school_id INTEGER PRIMARY KEY,
+        name TEXT NOT NULL,
+        city TEXT,
+        state TEXT
+    )
+''')
+
+# Create 'race_detail' table
+cursor.execute('''
+    CREATE TABLE race_detail (
+        race_detail_id INTEGER PRIMARY KEY,
+        athlete_id INTEGER,
+        race_id INTEGER,
+        time_seconds REAL,
+        FOREIGN KEY (athlete_id) REFERENCES athletes (athlete_id),
+        FOREIGN KEY (race_id) REFERENCES races (race_id)
+    )
+''')
+
+# Create 'races' table
+cursor.execute('''
+    CREATE TABLE races (
+        race_id INTEGER PRIMARY KEY,
+        race_name TEXT NOT NULL,
+        distance_meters INTEGER
+    )
+''')
+
+# Commit the changes and close the connection
+conn.commit()
+conn.close()
+
+# Read data from CSV files
+athletes_df = pd.read_csv('athletes.csv')  # Assuming you have a CSV file with athlete data
+schools_df = pd.read_csv('schools.csv')    # Assuming you have a CSV file with school data
+race_detail_df = pd.read_csv('race_detail.csv')  # Assuming you have a CSV file with race details
+races_df = pd.read_csv('races.csv')    # Assuming you have a CSV file with race data
+
+# Connect to SQLite3 database
+conn = sqlite3.connect('sports_database.db')
+cursor = conn.cursor()
+
+# Insert data into 'athletes' table
+athletes_df.to_sql('athletes', conn, index=False, if_exists='replace')
+
+# Insert data into 'schools' table
+schools_df.to_sql('schools', conn, index=False, if_exists='replace')
+
+# Insert data into 'races' table
+races_df.to_sql('races', conn, index=False, if_exists='replace')
+
+# Insert data into 'race_detail' table
+race_detail_df.to_sql('race_detail', conn, index=False, if_exists='replace')
+
+# Commit the changes and close the connection
+conn.commit()
+conn.close()
+
+import tkinter as tk
+from tkinter import filedialog
+import pandas as pd
+
+class SportsApp:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Sports App")
+
+        # Create labels
+        self.label_file_athletes = tk.Label(root, text="Athletes File:")
+        self.label_file_races = tk.Label(root, text="Races File:")
+        self.label_file_race_details = tk.Label(root, text="Race Details File:")
+
+        # Create file entry widgets
+        self.entry_athletes = tk.Entry(root, state="readonly", width=30)
+        self.entry_races = tk.Entry(root, state="readonly", width=30)
+        self.entry_race_details = tk.Entry(root, state="readonly", width=30)
+
+        # Create browse buttons
+        self.btn_browse_athletes = tk.Button(root, text="Browse", command=self.browse_athletes)
+        self.btn_browse_races = tk.Button(root, text="Browse", command=self.browse_races)
+        self.btn_browse_race_details = tk.Button(root, text="Browse", command=self.browse_race_details)
+
+        # Create race dropdown
+        self.races = ["Race 1", "Race 2", "Race 3"]  # Replace with actual race names
+        self.selected_race = tk.StringVar()
+        self.selected_race.set(self.races[0])  # Set default value
+        self.dropdown_race = tk.OptionMenu(root, self.selected_race, *self.races)
+
+        # Create operational buttons
+        self.btn_display_top_25 = tk.Button(root, text="Display Top 25", command=self.display_top_25)
+        self.btn_team_score_breakdown = tk.Button(root, text="Team Score Breakdown", command=self.team_score_breakdown)
+
+        # Layout
+        self.label_file_athletes.grid(row=0, column=0, padx=10, pady=10, sticky="e")
+        self.label_file_races.grid(row=1, column=0, padx=10, pady=10, sticky="e")
+        self.label_file_race_details.grid(row=2, column=0, padx=10, pady=10, sticky="e")
+
+        self.entry_athletes.grid(row=0, column=1, padx=10, pady=10, sticky="w")
+        self.entry_races.grid(row=1, column=1, padx=10, pady=10, sticky="w")
+        self.entry_race_details.grid(row=2, column=1, padx=10, pady=10, sticky="w")
+
+        self.btn_browse_athletes.grid(row=0, column=2, padx=10, pady=10, sticky="w")
+        self.btn_browse_races.grid(row=1, column=2, padx=10, pady=10, sticky="w")
+        self.btn_browse_race_details.grid(row=2, column=2, padx=10, pady=10, sticky="w")
+
+        self.dropdown_race.grid(row=3, column=0, columnspan=3, pady=10)
+
+        self.btn_display_top_25.grid(row=4, column=0, padx=10, pady=10)
+        self.btn_team_score_breakdown.grid(row=4, column=1, padx=10, pady=10)
+
+    def browse_athletes(self):
+        file_path = filedialog.askopenfilename(filetypes=[("CSV Files", "*.csv")])
+        self.entry_athletes.configure(state="normal")
+        self.entry_athletes.delete(0, tk.END)
+        self.entry_athletes.insert(0, file_path)
+        self.entry_athletes.configure(state="readonly")
+
+    def browse_races(self):
+        file_path = filedialog.askopenfilename(filetypes=[("CSV Files", "*.csv")])
+        self.entry_races.configure(state="normal")
+        self.entry_races.delete(0, tk.END)
+        self.entry_races.insert(0, file_path)
+        self.entry_races.configure(state="readonly")
+
+    def browse_race_details(self):
+        file_path = filedialog.askopenfilename(filetypes=[("CSV Files", "*.csv")])
+        self.entry_race_details.configure(state="normal")
+        self.entry_race_details.delete(0, tk.END)
+        self.entry_race_details.insert(0, file_path)
+        self.entry_race_details.configure(state="readonly")
+
+    def display_top_25(self):
+        # Implement logic to display top 25 results for the selected race
+        # Use self.selected_race.get() to get the selected race
+
+    def team_score_breakdown(self):
+        # Implement logic to present a team score breakdown
+        # Use self.selected_race.get() to get the selected race
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = SportsApp(root)
+    root.mainloop()
+
+import pandas as pd
+
+def calculate_race_results(race_results_df):
+    # Step 1: Sort the results based on finish times
+    sorted_results = race_results_df.sort_values(by='finish_time')
+
+    # Step 2: Identify top 25 finishers
+    top_25_finishers = sorted_results.head(25)
+
+    return top_25_finishers
+
+def calculate_team_scores(team_results_df):
+    # Step 3: Calculate team scores
+    team_results_df['score'] = team_results_df['finish_position']  # Adjust based on your scoring system
+    team_scores = team_results_df.groupby('team_id')['score'].sum().reset_index()
+
+    return team_scores
+
+# Example usage
+race_results = pd.read_csv('race_results.csv')  # Replace with actual race results data
+team_results = pd.read_csv('team_results.csv')  # Replace with actual team results data
+
+top_25_finishers = calculate_race_results(race_results)
+team_scores = calculate_team_scores(team_results)
+
+print("Top 25 Finishers:")
+print(top_25_finishers)
+
+print("\nTeam Scores:")
+print(team_scores)
