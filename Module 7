@@ -1,0 +1,70 @@
+pip install tkcalendar
+
+import tkinter as tk
+from tkinter import filedialog
+import csv
+from operator import itemgetter
+
+class StudentReportApp:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Student Report App")
+
+        self.data = []
+
+        # Create GUI elements
+        self.load_button = tk.Button(root, text="Load CSV", command=self.load_csv)
+        self.load_button.pack(pady=10)
+
+        self.report_listbox = tk.Listbox(root, width=40, height=10)
+        self.report_listbox.pack(pady=10)
+
+        self.export_button = tk.Button(root, text="Export Report", command=self.export_report)
+        self.export_button.pack(pady=10)
+
+    def load_csv(self):
+        file_path = filedialog.askopenfilename(filetypes=[("CSV Files", "*.csv")])
+
+        if file_path:
+            self.data = self.read_csv(file_path)
+            self.calculate_average()
+            self.sort_data()
+            self.display_report()
+
+    def read_csv(self, file_path):
+        with open(file_path, "r") as file:
+            reader = csv.DictReader(file)
+            data = [row for row in reader]
+        return data
+
+    def calculate_average(self):
+        for student in self.data:
+            math = int(student["Math"])
+            english = int(student["English"])
+            history = int(student["History"])
+            student["Average"] = (math + english + history) / 3
+
+    def sort_data(self):
+        self.data.sort(key=itemgetter("Average"), reverse=True)
+
+    def display_report(self):
+        self.report_listbox.delete(0, tk.END)
+        for student in self.data:
+            name = student["Name"]
+            average = round(student["Average"], 2)
+            self.report_listbox.insert(tk.END, f"{name}: {average}")
+
+    def export_report(self):
+        file_path = filedialog.asksaveasfilename(defaultextension=".csv", filetypes=[("CSV Files", "*.csv")])
+
+        if file_path:
+            with open(file_path, "w", newline="") as file:
+                writer = csv.writer(file)
+                writer.writerow(["Name", "Average"])
+                for student in self.data:
+                    writer.writerow([student["Name"], round(student["Average"], 2)])
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = StudentReportApp(root)
+    root.mainloop()
