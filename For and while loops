@@ -1,0 +1,39 @@
+for i in range(10):
+    print(i)
+
+
+fruits = ['kiwi', 'pineapple', 'strawberry']
+
+
+for fruit in fruits:
+    print(fruit)
+
+
+count = 0
+
+
+while count < 5:
+    print(count)
+    count += 1  
+
+user_input = ""
+
+
+for num in range(1, 6):
+    if num % 3 == 0:
+        print(f"{num} is divisible by 3")
+    elif num % 2 == 0:
+        print(f"{num} is even but not divisible by 3")
+    else:
+        print(f"{num} is odd and not divisible by 3")
+
+
+count = 0
+
+while count < 5:
+    if count == 3:
+        print("Count is 3. Breaking out of the loop.")
+        break
+    print(f"Count: {count}")
+    count += 1
+
