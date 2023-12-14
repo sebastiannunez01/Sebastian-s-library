@@ -1,0 +1,60 @@
+                                            Notebook Module 6
+Modules- a file containing python definitions, statements, and functions. It serves as a way to organize Python code into separate files, making it more modular. They really help programmers to break down large programs into smaller, manageable files. To create a module you simply write python code in a separate .py file.										# File: mymodule.py
+def greet(name):
+    print(f"Hello, {name}!")
+
+# File: main.py
+import mymodule
+
+mymodule.greet("Alice")
+Library- is a collection of related modules that provide additional functionality. They are pre- written pieces of code that can be used to perform specific tasks. Libraries help in extending the capabilities of python by providing a wide range of functionalities. They promote code reuse and save developers from having to be too repetitive for common tasks. The two most common libraries are Standard Libary and Third party libraries.		Real world example: A toolbox. Instead of having one huge multipurpose tool that fixes everything, within a toolkit there are many smaller tools that are designed to accomplish a specific task. Then storing them in a toolbox are what forms the library of all the smaller modules which in this case are the smaller tools. This allows them to be reused when each specific situation presents itself again.
+
+Python comes with an extensive standard library, which is a collection of built in modules that provide a wide range of functionalities.				‘Math’- it provides mathematical functions and constants.				import math
+
+print(math.sqrt(25))  # Output: 5.0
+print(math.pi)        # Output: 3.141592653589793
+
+
+‘Datetime’- provides classes for working with dates and times				from datetime import datetime
+
+current_time = datetime.now()
+print(current_time)
+													‘Os’-offers a way of using operating system dependent functionality, such as reading or writing to the file system.							import os
+
+print(os.getcwd())  # Output: Current working directory
+
+
+Pip is the default package installer for python. It stands for pip installs packages or preferred installer program. It is a command line tool that simplifies the process of installing, upgrading, and managing python packages or libraries from the python package index. It simplifies the process of using third party code into your projects and ensures that the necessary dependencies are available.							Requests- refers to the popular third party library called requests. It simplifies the process of making HTTP requests and working with API’s. It abstracts the complexities of making HTTP requests, making it easy for developers to interact with web services.						Numpy-  is short for numerical python, it’s a powerful Python library for numerical and mathematical operations. It provides support for large, multi dimensional arrays and matrices, along with a collection of mathematical functions to operate on these arrays. It serves as the foundation for many other libraries in the scientific and data science ecosystem.			Example: import numpy as np
+
+	
+
+Creating your own module in python involves organizing your code into a separate file or set of files that can be imported and used in other python scripts or modules.There are 6 steps to creating your own module. 1.Create a new python file. 2 Define a module level Docstring. 3 Save the module 4. Import and use the module. 5 Module as a package. 6 Document your functions									There are many different situations where creating your own module will be better for you than creating a standalone script in python. The first situation where creating a module would be better is if you plan to reuse a function across multiple scripts or projects. Also on larger projects modules allow you to compartmentalize your code into cleaner and more maintainable architecture.
+In python, a package is a way of organizing related modules into a single directory hierarchy. It helps in modularizing the code and avoids naming conflicts between modules. A package can contain sub packages, modules, and special files like ‘ _ _ innit_ _ . py’ which is executed when a package is imported.												‘_ _ innit _ _ . py’ - this file can be executed when the package is imported and is often used for package initialization, setting up variables, or importing module contents.									In your main. Py scripts you can import and use functions from the custom package.											# main.py
+from mypackage.greetings.english import greet_english
+from mypackage.greetings.spanish import greet_spanish
+from mypackage.operations.math import add
+from mypackage.operations.statistics import mean
+
+# Using functions from the package
+print(greet_english("Alice"))
+print(greet_spanish("Carlos"))
+
+numbers = [1, 2, 3, 4, 5]
+result_add = add(10, 20)
+result_mean = mean(numbers)
+
+print(f"Addition Result: {result_add}")
+print(f"Mean Result: {result_mean}")
+
+
+Collections module- provides specialized data structures that extend the capabilities of built in types.
+Json- provides methods for encoding and decoding JSON( java script object notation) data. It is a lightweight data interchange format widely used for data exchange between a server and a web application.
+
+‘Re’- provides support for regular expressions, allowing you to work with pattern in string.
+
+
+Batteries included- is a philosophy that is a guiding principle that emphasizes the inclusion of a comprehensive standard library with the language distribution. It reflects the idea that python comes with a rich set of modules and packages that cover a wide range of functionalities, which makes it a powerful and versatile language. The availability of a comprehensive standard library is something that sets python apart from many of the other programming languages.
+
+
+Well maintained library- when it comes to performance optimization there are a variety of reasons that choosing a well maintained library can be very important. Efficiency is usually something that is a result of a library that is developed by an experienced programmer. Libraries will also often use optimized data structures that are tailored for specific use cases, which reduces the time complexity of operations.
+ For reliability most of these libraries that are well maintained have active communities of developers and users that contribute to discussions, report issues, and provide support. The community engagement enhances the reliability of the library. This also allows for people to get bugs fixed at a much faster rate than if there was not a good community around the library.
