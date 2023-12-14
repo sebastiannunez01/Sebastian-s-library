@@ -1,0 +1,52 @@
+                                   Notebook Module 4
+
+1.In programming a function is a named block of reusable code that performs a specific task or set of tasks. They are meant to allow developers to break down a program into smaller more manageable pieces. It’s key purposes include Code Reusability, Abstraction, Organization, Parameterization, Encapsulation. When programs run, the function is executed with the specified inputs, and it produces the corresponding output. They are crucial in programming and they allow for the use of efficient code.
+2.The main function is the entry point for the execution of a script or program. Python doesn’t require a main function like some other coding platforms, however it is very common to see people utilize it for better organization and readability.												Def main():											print (“ this is the main function.”)								if _ _ name _ _ == “ _ _ main _ _ “:							main ()											The main logic is designed to encapsulate the main logic of the program
+3.There are 5 ways to put data variables into a function, these are also known as arguments or parameters. 1. Positional arguments- you can pass arguments to a function based on their position in the function’s parameter list. The order and number of arguments matter. 2. Keyword Arguments- You can also pass arguments to a function by explicitly specifying the parameter names and their values. This allows you to pass arguments out of order. 3. Default Values- You can set default values for function parameters. If an argument is not provided when the function is called, it takes on its default value. 4. Arbitrary Number of Arguments- You can use the ‘*args’ syntax to allow a function to accept an arbitrary number of positional arguments. These arguments are passed as a tuple. 5. Keyword Arguments- You can use ‘**kwargs’ syntax to allow a function to accept an arbitrary number of keyword arguments. These arguments are passed as a dictionary.
+4. In python you can return values from a function using the’ return’ statement. It’s used to send a value back to the caller of a function.						Return a single value   								def add(a, b):
+    result = a + b
+    return result
+
+# Calling the function and storing the result
+sum_result = add(3, 5)
+print(sum_result)  # Output: 8									Returning multiple values								def calculate(a, b):
+    sum_result = a + b
+    difference_result = a - b
+    return sum_result, difference_result
+
+# Calling the function and unpacking the returned values
+sum_result, difference_result = calculate(10, 5)
+print("Sum:", sum_result)               # Output: 15
+print("Difference:", difference_result)  # Output: 5						Returning Early										def absolute_value(x):
+    if x < 0:
+        return -x
+    return x
+
+result = absolute_value(-7)
+print(result)  # Output: 7
+
+Returning none											def do_nothing():
+    pass  # No explicit return statement
+
+result = do_nothing()
+print(result)  # Output: None
+
+5. An IPO( input processing output) is a visual representation or diagram that illustrates the flow of data within a system or program. IPO charts assist in analysis, communication, design, and documentation. Here is an example of one for a basic calculator. 										Input        Processing               Output
+--------     -----------           ------------
+  Number  ──>   Add or Subtract  ──>   Result
+            ──>   Multiply         ──>
+            ──>   Divide           ──>
+
+6. The scope of a variable in programming defines where in the code that variable can be accessed or modified. The scope of a variable is determined by where it is declared or defined. There are two main types, global and local.			Global Scope- a variable declared outside on any function has a global scope. It is accessible from anywhere in the code, both inside and outside of functions. It retains its value throughout the whole program.					global_variable = 10  # This is a global variable
+
+def example_function():
+    print(global_variable)  # Accessing the global variable
+
+example_function()  # Output: 10
+
+In programming the concept of a constant usually refers to a variable whose value is intended to remain unchanged throughout the execution of a program. The scope of a constant is similar to that of a variable but they are typically given global scope for universal access.								A global constant is a constant that is defined at the top level of a program and is accessible anywhere in the code. It retains value throughout the whole program just like a global variable. They are also written in uppercase to distinguish them. 											PI = 3.14159  # This is a global constant
+
+def calculate_area(radius):
+    return PI * radius**2
+
+print(calculate_area(5))  # Output: 78.53975
