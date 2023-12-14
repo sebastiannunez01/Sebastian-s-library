@@ -1,0 +1,88 @@
+import sqlite3
+
+# Connect to the SQLite database (it will be created if it doesn't exist)
+connection = sqlite3.connect('tennis_database.db')
+
+# Create a cursor object to interact with the database
+cursor = connection.cursor()
+
+# Create a table for tennis players
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS players (
+        player_id INTEGER PRIMARY KEY,
+        name TEXT NOT NULL,
+        nationality TEXT NOT NULL,
+        ranking INTEGER NOT NULL,
+        coach TEXT
+    )
+''')
+
+# Commit the changes and close the connection
+connection.commit()
+connection.close()
+
+
+import tkinter as tk
+from tkinter import ttk
+import sqlite3
+
+class TennisPlayerApp:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Tennis Player Database Application")
+
+        self.tree = ttk.Treeview(root, columns=('Player ID', 'Name', 'Nationality', 'Ranking', 'Coach'), show='headings')
+        self.tree.heading('Player ID', text='Player ID')
+        self.tree.heading('Name', text='Name')
+        self.tree.heading('Nationality', text='Nationality')
+        self.tree.heading('Ranking', text='Ranking')
+        self.tree.heading('Coach', text='Coach')
+        self.tree.pack()
+
+        self.refresh_data()
+
+        # Buttons for CRUD operations
+        btn_frame = tk.Frame(root)
+        btn_frame.pack(pady=10)
+
+        ttk.Button(btn_frame, text='Add Player', command=self.add_player).grid(row=0, column=0, padx=10)
+        ttk.Button(btn_frame, text='Update Player', command=self.update_player).grid(row=0, column=1, padx=10)
+        ttk.Button(btn_frame, text='Delete Player', command=self.delete_player).grid(row=0, column=2, padx=10)
+
+    def execute_query(self, query, parameters=()):
+        connection = sqlite3.connect('tennis_database.db')
+        cursor = connection.cursor()
+        cursor.execute(query, parameters)
+        connection.commit()
+        connection.close()
+
+    def fetch_data(self, query, parameters=()):
+        connection = sqlite3.connect('tennis_database.db')
+        cursor = connection.cursor()
+        result = cursor.execute(query, parameters).fetchall()
+        connection.close()
+        return result
+
+    def refresh_data(self):
+        records = self.fetch_data("SELECT * FROM players")
+        for row in self.tree.get_children():
+            self.tree.delete(row)
+        for record in records:
+            self.tree.insert('', 'end', values=record)
+
+    def add_player(self):
+        # Implement the logic to add a new player to the database
+        pass
+
+    def update_player(self):
+        # Implement the logic to update an existing player in the database
+        pass
+
+    def delete_player(self):
+        # Implement the logic to delete a player from the database
+        pass
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = TennisPlayerApp(root)
+    root.mainloop()
