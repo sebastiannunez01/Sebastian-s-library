@@ -1,0 +1,24 @@
+                                         Notebook Module 5
+          
+In python a data structure is a way of organizing and storing data to perform operations efficiently. Python provides several built in data structures for people to utilize. Additional data structures can be implemented using classes or libraries The choice of a specific data structure depends on the specific requirements of a problem. 
+ Lists- a list is an ordered and mutable collection of items. Items in a list can be of different data types. They are also created using square brackets’ [ ]’									my_list = [1, 2, 3, "hello", 5.0]
+
+my_list = [1, 2, 3, "hello", 5.0]
+
+my_list = [1, 2, 3, "hello", 5.0]
+
+Dictionaries- a dictionary is an unordered collection of key value pairs. Each key in a dictionary must be unique. They are created using curly braces’{}’ or the ‘dict()’ constructor.					my_list = [1, 2, 3, "hello", 5.0]
+Tuples-  is an ordered and immutable collection of items. They are created using parentheses. ()							my_tuple = (1, 2, 3, "world", 4.5)						Sets- an unordered collection of unique items. They are useful for performing mathematical set operations. They are created with the curly braces or ‘set()’ constructor.					my_set = {1, 2, 3, 4, 5}
+Choosing the right data structure for a given problem is crucial in software development because each one has different characteristics that give them advantages, and disadvantages. Efficiency, readability, and maintainability are the three major reasons why choosing the right data structure is very important.             Lists are good for sequential access and dynamic resizing but may have slower search operations. Sets are efficient for membership tests and eliminating duplicates. Dictionaries provide fast key based access to values.
+Using a data structure within another data structure is commonly referred to as nesting data structures(like the doll). It allows the programmer to represent complex relationships and structures in a way that mirrors the organization of real world data. 				You can have dictionaries as elements within a list			students = [
+    {"name": "Alice", "age": 20},
+    {"name": "Bob", "age": 22},
+    {"name": "Charlie", "age": 21}
+]
+
+print(students[0]["name"])  # Accessing an element: Output: Alice
+
+Advanced data structures refers to more complex and specialized data structures that go beyond the basic built- in- data structures provided by programming languages. They are often designed to address specific problems that the normal ones are unable to solve. B Tree-  it’s a self balancing tree data structure that maintains sorted data and allows searches, sequential access, insertions, and deletions in logarithmic time. These are usually implemented in databases and file systems to maximize efficiency.
+Time complexity- is a measure of the amount of time an algorithm takes to complete as a function of the size of its input. It provides an estimate of the maximum amount of time an algorithm could take based on the characteristics of its code. It’s typically expressed using the big O notation, which describes the upper bound of the running time in the worst case scenario. Understanding time complexity is crucial for assessing the efficiency of algorithms and to compare which solution will be the best.
+
+
