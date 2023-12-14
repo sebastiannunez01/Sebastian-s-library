@@ -1,0 +1,77 @@
+                                                Notebook Module 7
+
+File handling- is the manipulation and management of files, which are containers for storing data on a computer’s storage medium. It allows applications to read from and write to files, create new files, delete files, and perform various operations in relation to data persistence. The comparisons to everyday life are very straightforward. Imagine creating a new document and putting it in your filing cabinet to store so you can grab it when you need it. This is the same basic principle of opening file handling in python which helps you create and store functions in an organized matter. If you don’t have a filing cabinet for a paper document then you are much more likely to lose it and security is an issue because it is not locked in a safe compartment. It also allows you to know exactly where it is next time you need it because you have that organization.
+
+Reading a file-  There are various methods to reading content from a file, such as ‘read()’ , ‘ readline()’, ‘readlines()’ .
+# Read the entire content of the file
+content = file.read()
+
+# Read a single line
+line = file.readline()
+
+# Read all lines into a list
+lines = file.readlines()
+
+Writing a file-  to write a file use functions like ‘write()’.
+# Write a string to the file
+file.write("Hello, World!\n")
+
+# Write a list of strings to the file
+lines = ["Line 1\n", "Line 2\n", "Line 3\n"]
+file.writelines(lines)
+
+Using the with statement-  the with statement is used as a context manager. It automatically takes care of opening and closing the file, ensuring proper resource management. 
+with open('example.txt', 'r') as file:
+    content = file.read()
+    # perform operations with the file inside this block
+
+# The file is automatically closed outside the 'with' block
+File modes- refer to the different ways in which you can open and interact with a file. Each mode serves a specific purpose, allowing you to perform various operations on files.
+Read mode- it opens the file for reading, you can only read the contents of the file. No writing or modifications are allowed.
+Example- ‘ file=open(‘example.txt’ , ‘r’) ‘
+Write mode- it opens the file for writing. If the file exists, it truncates the file to zero length. If the file does not exist, it creates a new file for writing.
+Example- ‘file=open(‘example.txt’, ‘w’)’
+Append mode- It opens the file for appending. It allows you to add data to the end of the file without truncating the existing content. If the file does not exist it creates a new file.
+example - ‘file= open(‘ example.txt’ , ‘a’) ‘
+
+File operations- file operations in programming are essential for various scenarios. Providing means to read, write, and manipulate data stored in files. Data persistence, Configuration management, and Data Processing are examples of why file handling is very important.
+You can move the file pointer to a specific position using functions like ‘ seek()’ in many programming languages.
+# Example: Move the file pointer to the 10th byte from the beginning
+file = open('example.txt', 'r')
+file.seek(10)
+You can retrieve the current position of the file pointer using the ‘tell()’ function in many programming languages. This function returns the current offset from the beginning of the file.
+# Example: Get the current position of the file pointer
+file = open('example.txt', 'r')
+position = file.tell()
+print("Current position:", position)
+
+SQLite- is a lightweight, embedded relational database management system that is widely used for various applications due to its simplicity, ease of use, and portability. It’s a versatile and practical choice for projects that require a lightweight, embedded database solution with minimal setup and administration overhead. It’s especially well suited for scenarios where simplicity and portability are key considerations.
+Create tables-  To create tables use the ‘create table’ statement. Each table is defined with a set of columns, each with a specified data type.
+CREATE TABLE TableName (
+    column1 DataType1,
+    column2 DataType2,
+    ...
+);
+
+Inserting data-  to insert data into the table, you use the ‘insert info’ statement.
+INSERT INTO TableName (column1, column2, ...)
+VALUES (value1, value2, ...);
+
+
+
+Querying data- to retrieve data from the table, you use the ‘select’ statement.
+SELECT column1, column2, ...
+FROM TableName
+WHERE condition;
+
+
+
+Directories, creating folders, and handling file paths.- These operations are part of the standard library and do not require external packages. They provide a platform independent way to work with file paths and directories. When handling paths, it’s a good practice to use these functions from the ’os.path’. The ‘os’ module provides a method to get the current working directory.
+
+Common Pitfalls-  Not closing a file- failing to close a file after reading or writing to it can lead to resource leaks and potential issues.
+Using hard coded paths- hard coding paths can lead to portability issues when the code is executed on different systems.
+Not checking file existence-  failing to check whether a file or directory exists before performing operations can lead to errors.
+
+Best practices- 
+Use context managers- use the with statement to ensure that files are automatically closed after use. This helps prevent resource leaks.
+Handle file coding explicitly- specify the encoding when opening a file, especially when dealing with non-ASCII characters.
