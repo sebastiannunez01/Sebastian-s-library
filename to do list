@@ -1,0 +1,26 @@
+
+
+class ToDoList:
+    def __init__(self):
+        self.tasks = []
+
+    def add_task(self, task):
+        self.tasks.append(task)
+
+    def display_tasks(self):
+        if not self.tasks:
+            print("No tasks in the to-do list.")
+        else:
+            print("To-Do List:")
+            for index, task in enumerate(self.tasks, start=1):
+                print(f"{index}. {task}")
+
+
+if __name__ == "__main__":
+    my_todo_list = ToDoList()
+
+    my_todo_list.add_task("Complete homework")
+    my_todo_list.add_task("Go to the gym")
+    my_todo_list.add_task("Read a book")
+
+    my_todo_list.display_tasks()
