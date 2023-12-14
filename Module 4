@@ -1,0 +1,16 @@
+def convert_temperature(temp, unit):
+    if unit == 'C':
+
+        converted_temp = temp * 9/5 + 32
+    elif unit == 'F':
+
+        converted_temp = (temp - 32) * 5/9
+    else:
+
+        return "Invalid unit. Use 'C' for Celsius or 'F' for Fahrenheit."
+
+    return converted_temp
+
+
+print(convert_temperature(32, 'C'))
+print(convert_temperature(89.6, 'F'))  
