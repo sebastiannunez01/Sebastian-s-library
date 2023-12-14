@@ -1,0 +1,23 @@
+
+employees = {
+    'Luka': 120000,
+    'Noe': 80000,
+    'Rod': 45000,
+    'Jorge': 130000
+}
+
+
+HIGH_SALES_BONUS_PERCENTAGE = 0.10
+MEDIUM_SALES_BONUS_PERCENTAGE = 0.05
+NO_BONUS_PERCENTAGE = 0.0
+
+
+for employee, sales in employees.items():
+    if sales > 100000:
+        bonus = sales * HIGH_SALES_BONUS_PERCENTAGE
+    elif 50000 <= sales <= 100000:
+        bonus = sales * MEDIUM_SALES_BONUS_PERCENTAGE
+    else:
+        bonus = sales * NO_BONUS_PERCENTAGE
+
+    print(f"{employee}'s sales: ${sales:.2f}, Bonus: ${bonus:.2f}")
