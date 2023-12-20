@@ -105,3 +105,113 @@ with open(csv_file_path, mode='r') as file:
     for row in reader:
         print(f"Event: {row['Event']}, Timestamp: {row['Timestamp']}")
 
+#practice problem number 3
+have t kinter installed or else you can use this code
+pip install tk
+
+import tkinter as tk
+from tkinter import ttk
+import sqlite3
+from tkinter import messagebox
+import locale
+
+locale.setlocale(locale.LC_ALL, '')  # Set the locale for currency formatting
+
+class ProductManager:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Product Manager")
+
+        # SQLite Database
+        self.conn = sqlite3.connect("products.db")
+        self.cursor = self.conn.cursor()
+
+        # Create Products table if not exists
+        self.cursor.execute('''
+            CREATE TABLE IF NOT EXISTS products (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT,
+                price REAL,
+                stock_count INTEGER
+            )
+        ''')
+        self.conn.commit()
+
+        # GUI Elements
+        self.product_name_label = tk.Label(root, text="Product Name:")
+        self.product_name_label.grid(row=0, column=0, padx=5, pady=5, sticky=tk.E)
+
+        self.product_name_entry = tk.Entry(root)
+        self.product_name_entry.grid(row=0, column=1, padx=5, pady=5)
+
+        self.price_label = tk.Label(root, text="Price:")
+        self.price_label.grid(row=1, column=0, padx=5, pady=5, sticky=tk.E)
+
+        self.price_entry = tk.Entry(root)
+        self.price_entry.grid(row=1, column=1, padx=5, pady=5)
+
+        self.stock_count_label = tk.Label(root, text="Stock Count:")
+        self.stock_count_label.grid(row=2, column=0, padx=5, pady=5, sticky=tk.E)
+
+        self.stock_count_entry = tk.Entry(root)
+        self.stock_count_entry.grid(row=2, column=1, padx=5, pady=5)
+
+        self.add_button = tk.Button(root, text="Add Product", command=self.add_product)
+        self.add_button.grid(row=3, column=0, columnspan=2, pady=10)
+
+        self.fetch_button = tk.Button(root, text="Fetch Products", command=self.fetch_products)
+        self.fetch_button.grid(row=4, column=0, columnspan=2, pady=10)
+
+        self.sort_button = tk.Button(root, text="Sort Products by Price", command=self.sort_products)
+        self.sort_button.grid(row=5, column=0, columnspan=2, pady=10)
+
+        # Treeview for displaying products
+        self.tree = ttk.Treeview(root, columns=("Product Name", "Price", "Stock Count"), show="headings")
+        self.tree.heading("Product Name", text="Product Name")
+        self.tree.heading("Price", text="Price")
+        self.tree.heading("Stock Count", text="Stock Count")
+        self.tree.grid(row=6, column=0, columnspan=2, padx=5, pady=5)
+
+    def add_product(self):
+        try:
+            name = self.product_name_entry.get()
+            price = float(self.price_entry.get())
+            stock_count = int(self.stock_count_entry.get())
+
+            self.cursor.execute('''
+                INSERT INTO products (name, price, stock_count) VALUES (?, ?, ?)
+            ''', (name, price, stock_count))
+
+            self.conn.commit()
+            messagebox.showinfo("Success", "Product added successfully.")
+            self.clear_entries()
+        except Exception as e:
+            messagebox.showerror("Error", f"Error: {e}")
+
+    def fetch_products(self):
+        self.tree.delete(*self.tree.get_children())  # Clear previous entries
+        self.cursor.execute("SELECT * FROM products")
+        rows = self.cursor.fetchall()
+
+        for row in rows:
+            product_name, price, stock_count = row
+            self.tree.insert("", "end", values=(product_name, locale.currency(price), stock_count))
+
+    def sort_products(self):
+        current_data = self.tree.get_children()
+        current_data = sorted(current_data, key=lambda x: float(self.tree.item(x, 'values')[1].replace('$', '').replace(',', '')))
+        for i, item in enumerate(current_data):
+            self.tree.move(item, '', i)
+
+    def clear_entries(self):
+        self.product_name_entry.delete(0, tk.END)
+        self.price_entry.delete(0, tk.END)
+        self.stock_count_entry.delete(0, tk.END)
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = ProductManager(root)
+    root.mainloop()
+
+
+
