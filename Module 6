@@ -181,3 +181,73 @@ result_label.grid(row=2, column=0, columnspan=3, pady=10)
 window.mainloop()
 when you click run it will create the button for the converter where you can input the values
 
+#practice problem number 4
+import tkinter as tk
+from urllib.request import urlopen
+from bs4 import BeautifulSoup
+from urllib.error import URLError
+
+def fetch_content():
+    try:
+        url = url_entry.get()
+        response = urlopen(url)
+        html_content = response.read()
+
+        # Parse HTML content
+        soup = BeautifulSoup(html_content, 'html.parser')
+
+        # Extract page title
+        page_title = soup.title.string if soup.title else "Title not found"
+
+        # Extract first 200 characters of page content
+        page_content = html_content[:200].decode('utf-8', errors='ignore')
+
+        # Count the number of images on the page
+        images = soup.find_all('img')
+        image_count = len(images)
+
+        # Update labels with extracted information
+        title_label.config(text=f"Page Title: {page_title}")
+        content_label.config(text=f"First 200 characters: {page_content}")
+        image_count_label.config(text=f"Number of images: {image_count}")
+
+    except URLError as e:
+        title_label.config(text=f"Error: {e}")
+        content_label.config(text="")
+        image_count_label.config(text="")
+    except Exception as e:
+        title_label.config(text=f"Error: {e}")
+        content_label.config(text="")
+        image_count_label.config(text="")
+
+# Create the main window
+window = tk.Tk()
+window.title("Web Content Fetcher")
+
+# URL entry
+url_label = tk.Label(window, text="Enter URL:")
+url_label.grid(row=0, column=0, padx=5, pady=5, sticky=tk.E)
+
+url_entry = tk.Entry(window)
+url_entry.grid(row=0, column=1, padx=5, pady=5)
+
+# Fetch button
+fetch_button = tk.Button(window, text="Fetch Content", command=fetch_content)
+fetch_button.grid(row=0, column=2, padx=5, pady=5)
+
+# Labels to display information
+title_label = tk.Label(window, text="Page Title:")
+title_label.grid(row=1, column=0, columnspan=3, pady=5)
+
+content_label = tk.Label(window, text="First 200 characters:")
+content_label.grid(row=2, column=0, columnspan=3, pady=5)
+
+image_count_label = tk.Label(window, text="Number of images:")
+image_count_label.grid(row=3, column=0, columnspan=3, pady=5)
+
+# Start the Tkinter event loop
+window.mainloop()
+
+to install beautiful soup use this function
+pip install beautifulsoup4
+
