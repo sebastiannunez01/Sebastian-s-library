@@ -21,4 +21,99 @@ print(students[0]["name"])  # Accessing an element: Output: Alice
 Advanced data structures refers to more complex and specialized data structures that go beyond the basic built- in- data structures provided by programming languages. They are often designed to address specific problems that the normal ones are unable to solve. B Tree-  it’s a self balancing tree data structure that maintains sorted data and allows searches, sequential access, insertions, and deletions in logarithmic time. These are usually implemented in databases and file systems to maximize efficiency.
 Time complexity- is a measure of the amount of time an algorithm takes to complete as a function of the size of its input. It provides an estimate of the maximum amount of time an algorithm could take based on the characteristics of its code. It’s typically expressed using the big O notation, which describes the upper bound of the running time in the worst case scenario. Understanding time complexity is crucial for assessing the efficiency of algorithms and to compare which solution will be the best.
 
+New updated notebook
+1. What is a Data Structure?
+A data structure is a way of organizing and storing data to perform operations efficiently. It provides a systematic and efficient way to manage and manipulate data. In programming, choosing the right data structure is crucial for optimal performance.
+
+Importance of Data Structures:
+Efficient Operations: Data structures allow efficient access, insertion, and deletion of data.
+Memory Optimization: Choosing the right data structure can optimize memory usage.
+Real-world Significance: In business scenarios, data structures help organize customer information, product details, and transaction records.
+2. Basic Python Data Structures
+Lists:
+Definition: Ordered and mutable collection of elements.
+Characteristics: Allows duplicates, supports indexing and slicing.
+Operations:
+python
+Copy code
+# Creating a list
+my_list = [1, 2, 3]
+
+# Adding elements
+my_list.append(4)
+
+# Removing elements
+my_list.remove(2)
+
+# Accessing elements
+element = my_list[0]
+Dictionaries:
+Definition: Unordered collection of key-value pairs.
+Characteristics: Fast retrieval, keys are unique.
+Operations:
+python
+Copy code
+# Creating a dictionary
+my_dict = {'name': 'Alice', 'age': 25}
+
+# Adding elements
+my_dict['city'] = 'New York'
+
+# Removing elements
+del my_dict['age']
+
+# Accessing elements
+value = my_dict['name']
+Tuples and Sets:
+Tuples Definition: Ordered and immutable collection.
+Sets Definition: Unordered and unique elements collection.
+Operations:
+python
+Copy code
+# Tuple
+my_tuple = (1, 2, 3)
+
+# Set
+my_set = {1, 2, 3}
+
+# Set operations
+my_set.add(4)
+3. Why Use Specific Data Structures?
+Advantages and Scenarios:
+Lists: Use when the order and mutability of elements matter.
+Dictionaries: Optimal for fast retrieval of values based on keys.
+Tuples: Suitable for situations where immutability is desired, such as representing coordinates.
+Sets: Ideal for situations requiring unique elements, like keeping track of distinct items.
+4. Nested Data Structures
+Data structures can be nested within others, allowing complex structures.
+
+Example:
+python
+Copy code
+# List of dictionaries representing departments and employees
+company_data = [
+    {'department': 'HR', 'employees': ['Alice', 'Bob']},
+    {'department': 'Finance', 'employees': ['Charlie', 'David']}
+]
+5. Advanced Data Structures (Brief Overview)
+Namedtuple:
+Definition: A tuple subclass with named fields.
+Use-case: Convenient for simple classes without methods.
+Example:
+python
+Copy code
+from collections import namedtuple
+
+# Creating a named tuple
+Person = namedtuple('Person', ['name', 'age', 'city'])
+alice = Person('Alice', 25, 'New York')
+6. Data Structures and Performance
+Choosing the right data structure impacts performance.
+
+Performance Implications:
+Time Complexity: Consideration of how the size of the input affects the running time of an algorithm.
+Example: Using a set for membership tests has O(1) time complexity.
+Chapter Summary
+In this chapter, we delved into the world of data structures, understanding their importance, exploring basic Python data structures, discussing when and why to use specific ones, exploring nested structures, introducing advanced structures, and considering performance implications. Choose data structures wisely, considering real-world scenarios for efficient and effective programming.
+
 
