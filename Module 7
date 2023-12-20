@@ -213,5 +213,80 @@ if __name__ == "__main__":
     app = ProductManager(root)
     root.mainloop()
 
+#practice problem number 4
+import tkinter as tk
+from tkinter import ttk
+import sqlite3
+import csv
+import locale
+
+locale.setlocale(locale.LC_ALL, '')  # Set the locale for currency formatting
+
+class EmployeeDatabase:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Employee Database")
+
+        # SQLite Database
+        self.conn = sqlite3.connect("company.db")
+        self.cursor = self.conn.cursor()
+
+        # Create Employees table if not exists
+        self.cursor.execute('''
+            CREATE TABLE IF NOT EXISTS Employees (
+                ID TEXT PRIMARY KEY,
+                FirstName TEXT,
+                LastName TEXT,
+                Department TEXT,
+                Salary REAL
+            )
+        ''')
+        self.conn.commit()
+
+        # GUI Elements
+        self.load_button = tk.Button(root, text="Load and Migrate Data", command=self.load_and_migrate_data)
+        self.load_button.grid(row=0, column=0, pady=10)
+
+        self.fetch_button = tk.Button(root, text="Fetch and Display", command=self.fetch_and_display_data)
+        self.fetch_button.grid(row=0, column=1, pady=10)
+
+        # Treeview for displaying employees
+        self.tree = ttk.Treeview(root, columns=("Full Name", "Department", "Salary"), show="headings")
+        self.tree.heading("Full Name", text="Full Name")
+        self.tree.heading("Department", text="Department")
+        self.tree.heading("Salary", text="Salary")
+        self.tree.grid(row=1, column=0, columnspan=2, padx=5, pady=5)
+
+    def load_and_migrate_data(self):
+        try:
+            with open("employees.csv", "r") as file:
+                csv_reader = csv.DictReader(file)
+                for row in csv_reader:
+                    self.cursor.execute('''
+                        INSERT INTO Employees (ID, FirstName, LastName, Department, Salary)
+                        VALUES (?, ?, ?, ?, ?)
+                    ''', (row['ID'], row['First Name'], row['Last Name'], row['Department'], float(row['Salary'])))
+                self.conn.commit()
+                tk.messagebox.showinfo("Success", "Data migration successful.")
+        except Exception as e:
+            tk.messagebox.showerror("Error", f"Error: {e}")
+
+    def fetch_and_display_data(self):
+        self.tree.delete(*self.tree.get_children())  # Clear previous entries
+        self.cursor.execute("SELECT * FROM Employees ORDER BY Salary DESC")
+        rows = self.cursor.fetchall()
+
+        for row in rows:
+            full_name = f"{row[1]} {row[2]}"
+            department = row[3]
+            salary = locale.currency(row[4])
+            self.tree.insert("", "end", values=(full_name, department, salary))
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = EmployeeDatabase(root)
+    root.mainloop()
+
+
 
 
