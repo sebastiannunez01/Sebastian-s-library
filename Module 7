@@ -1,3 +1,4 @@
+#practice problem number 1
 pip install tkcalendar
 
 import tkinter as tk
@@ -68,3 +69,39 @@ if __name__ == "__main__":
     root = tk.Tk()
     app = StudentReportApp(root)
     root.mainloop()
+
+# practice problem number 2
+import csv
+from datetime import datetime
+
+# Given events
+events = [
+    {"event": "login", "timestamp": "2023-10-15 08:10:05"},
+    {"event": "logout", "timestamp": "2023-10-15 10:12:40"},
+    {"event": "login", "timestamp": "2023-10-15 11:05:10"}
+]
+
+# Write events to CSV file
+csv_file_path = "events_log.csv"
+with open(csv_file_path, mode='w', newline='') as file:
+    fieldnames = ['Event', 'Timestamp']
+    writer = csv.DictWriter(file, fieldnames=fieldnames)
+
+    # Write header
+    writer.writeheader()
+
+    # Write events in chronological order
+    sorted_events = sorted(events, key=lambda x: datetime.strptime(x['timestamp'], "%Y-%m-%d %H:%M:%S"))
+    for event in sorted_events:
+        writer.writerow(event)
+
+print(f"Events written to {csv_file_path}")
+
+# Read the CSV file and display events
+with open(csv_file_path, mode='r') as file:
+    reader = csv.DictReader(file)
+    
+    print("\nEvents in chronological order:")
+    for row in reader:
+        print(f"Event: {row['Event']}, Timestamp: {row['Timestamp']}")
+
