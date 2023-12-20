@@ -6,3 +6,71 @@ The if statement is used to execute a block of code only if a specified conditio
 The elif statement is used to check additional conditions if the preceding”if condition is false. It stands for “else if”								z=30											if z > 40 										print( “ z is greater than 40”)				                               elif z > 30:							                               print(“z is greater than 30 but not 40”)
 The else statement is used to specify a block of code to be executed if the preceding if and elif statements are false					y = 8											if y > 10										print (“ y is greater than 10”)							elif y > 6										print (“y is greater than 6 but not 10”)						else: (“ print y is 7 or less”)
     Combining all of these statements would be easily applicable in a coding for grades. You could list the numerical value of the grade of a student. Then list if it’s above a 90 it’s an A, above an 80 and lower than a 90 a B and etc. all the way down to F.
+New notebook
+
+
+
+Introduction to Boolean Logic and Comparison Operators
+1. What is Boolean Logic?
+Boolean logic is a branch of algebra that deals with binary variables and logic operations. It revolves around the concept of truth values, where an expression is either true or false. In programming, Boolean logic is extensively used for decision-making and control flow.
+
+Applications:
+Decision Making: Boolean logic is used to make decisions in programming. Conditions are evaluated, and based on whether they are true or false, specific actions are taken.
+Control Flow: It is employed in control flow statements like if statements, loops, and more.
+Usefulness in Programming:
+Boolean logic is fundamental in programming because it allows developers to implement decision-making processes, create conditional statements, and control the flow of the program based on certain conditions.
+
+2. Comparison Operators
+Comparison operators are used to compare values and return Boolean results. Here are the commonly used comparison operators:
+
+==: Equal to
+!=: Not equal to
+>: Greater than
+<: Less than
+>=: Greater than or equal to
+<=: Less than or equal to
+Usage:
+==: Used to check if two values are equal.
+!=: Checks if two values are not equal.
+> and <: Compare numerical values.
+>= and <=: Check if a value is greater than or equal to, or less than or equal to, another value.
+3. Conditional If Statements
+Conditional statements in Python, such as if, elif, and else, allow you to make decisions in your code.
+
+Code Example:
+python
+Copy code
+# Assuming x and y are predefined variables
+if x == y:
+    print("x is equal to y")
+elif x > y:
+    print("x is greater than y")
+else:
+    print("x is less than y")
+Explanation:
+The if statement checks if x is equal to y.
+If the condition is true, it executes the corresponding block of code.
+If the condition is false, it moves to the elif statement and checks if x is greater than y.
+If the elif condition is true, it executes the corresponding block.
+If neither the if nor elif conditions are true, the else block is executed.
+Flowchart:
+plaintext
+Copy code
+            +------------------+
+            | x equals y?       |
+            +---------+--------+
+                      |
+                      v
+            +---------+
+            | x > y?  |
+            +---------+
+                      |
+                      v
+            +---------+
+            |   else  |
+            +---------+
+Examples:
+
+If x = 5 and y = 5, the output will be "x is equal to y."
+If x = 7 and y = 3, the output will be "x is greater than y."
+If x = 2 and y = 8, the output will be "x is less than y."
