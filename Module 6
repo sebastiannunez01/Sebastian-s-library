@@ -112,6 +112,7 @@ result_text.grid(row=4, column=0, columnspan=2)
 
 # Start the Tkinter event loop
 window.mainloop()
+When you click run the application it will cause the GUI to pop up where you can do a multitude of numeric functions like add, divide, and subtract.
 
 #practice problem number 3 
 
