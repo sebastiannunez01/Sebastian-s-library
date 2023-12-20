@@ -21,3 +21,178 @@ for employee, sales in employees.items():
         bonus = sales * NO_BONUS_PERCENTAGE
 
     print(f"{employee}'s sales: ${sales:.2f}, Bonus: ${bonus:.2f}")
+
+#practice problem number 2
+def is_prime(number):
+    if number < 2:
+        return False
+    for i in range(2, int(number**0.5) + 1):
+        if number % i == 0:
+            return False
+    return True
+
+def print_prime_numbers(numbers):
+    prime_numbers = [num for num in numbers if is_prime(num)]
+    print("Prime numbers in the list:", prime_numbers)
+
+# Example usage
+numbers = [2, 15, 19, 27, 35, 47]
+print_prime_numbers(numbers)
+
+#practice problem number 3
+
+def calculate_average(scores):
+    return sum(scores) / len(scores)
+
+def assign_grade(average_score):
+    if average_score >= 90:
+        return 'A'
+    elif 80 <= average_score < 90:
+        return 'B'
+    elif 70 <= average_score < 80:
+        return 'C'
+    elif 60 <= average_score < 70:
+        return 'D'
+    else:
+        return 'F'
+
+def display_student_grades(students):
+    for student in students:
+        name = student["name"]
+        scores = student["scores"]
+        average_score = calculate_average(scores)
+        grade = assign_grade(average_score)
+        print(f"{name}: Average Score = {average_score:.2f}, Grade = {grade}")
+
+# Example usage
+students = [
+    {"name": "Eva", "scores": [85, 90, 88]},
+    {"name": "Frank", "scores": [56, 45, 67]},
+    {"name": "Grace", "scores": [78, 77, 75]},
+    {"name": "Harry", "scores": [90, 92, 94]}
+]
+
+display_student_grades(students)
+
+#practice problem number 4
+class InventoryManager:
+    def __init__(self):
+        self.inventory = {}
+
+    def add_product(self, name, quantity):
+        if name in self.inventory:
+            self.inventory[name] += quantity
+        else:
+            self.inventory[name] = quantity
+        print(f"Added {quantity} units of {name} to the inventory.")
+
+    def remove_product(self, name, quantity):
+        if name in self.inventory:
+            if self.inventory[name] >= quantity:
+                self.inventory[name] -= quantity
+                print(f"Removed {quantity} units of {name} from the inventory.")
+                if self.inventory[name] == 0:
+                    del self.inventory[name]
+            else:
+                print(f"Error: Not enough units of {name} in the inventory.")
+        else:
+            print(f"Error: {name} not found in the inventory.")
+
+    def view_inventory(self):
+        print("Current Inventory:")
+        for name, quantity in self.inventory.items():
+            print(f"{name}: {quantity} units")
+
+# Example usage
+inventory_manager = InventoryManager()
+
+inventory_manager.add_product("Widget A", 50)
+inventory_manager.add_product("Widget B", 30)
+
+inventory_manager.view_inventory()
+
+inventory_manager.remove_product("Widget A", 20)
+inventory_manager.remove_product("Widget C", 10)  # Trying to remove a non-existent product
+
+inventory_manager.view_inventory()
+
+# if you wanted to create an sqlite for number 4
+import sqlite3
+
+# Connect to the SQLite database (or create a new one if it doesn't exist)
+conn = sqlite3.connect("inventory.db")
+cursor = conn.cursor()
+
+# Create a table for the product inventory
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS inventory (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        quantity INTEGER NOT NULL
+    )
+''')
+conn.commit()
+
+class InventoryManager:
+    def __init__(self):
+        self.conn = sqlite3.connect("inventory.db")
+        self.cursor = self.conn.cursor()
+
+    def add_product(self, name, quantity):
+        self.cursor.execute('''
+            INSERT INTO inventory (name, quantity) VALUES (?, ?)
+        ''', (name, quantity))
+        self.conn.commit()
+        print(f"Added {quantity} units of {name} to the inventory.")
+
+    def remove_product(self, name, quantity):
+        self.cursor.execute('''
+            SELECT quantity FROM inventory WHERE name = ?
+        ''', (name,))
+        result = self.cursor.fetchone()
+        
+        if result:
+            current_quantity = result[0]
+            if current_quantity >= quantity:
+                new_quantity = current_quantity - quantity
+                self.cursor.execute('''
+                    UPDATE inventory SET quantity = ? WHERE name = ?
+                ''', (new_quantity, name))
+                self.conn.commit()
+                print(f"Removed {quantity} units of {name} from the inventory.")
+                if new_quantity == 0:
+                    self.cursor.execute('''
+                        DELETE FROM inventory WHERE name = ?
+                    ''', (name,))
+                    self.conn.commit()
+            else:
+                print(f"Error: Not enough units of {name} in the inventory.")
+        else:
+            print(f"Error: {name} not found in the inventory.")
+
+    def view_inventory(self):
+        self.cursor.execute('''
+            SELECT * FROM inventory
+        ''')
+        rows = self.cursor.fetchall()
+        
+        print("Current Inventory:")
+        for row in rows:
+            print(f"{row[1]}: {row[2]} units")
+
+# Example usage
+inventory_manager = InventoryManager()
+
+inventory_manager.add_product("Widget A", 50)
+inventory_manager.add_product("Widget B", 30)
+
+inventory_manager.view_inventory()
+
+inventory_manager.remove_product("Widget A", 20)
+inventory_manager.remove_product("Widget C", 10)  # Trying to remove a non-existent product
+
+inventory_manager.view_inventory()
+
+# Close the database connection
+inventory_manager.conn.close()
+
