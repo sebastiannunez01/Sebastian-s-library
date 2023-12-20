@@ -14,3 +14,57 @@ def convert_temperature(temp, unit):
 
 print(convert_temperature(32, 'C'))
 print(convert_temperature(89.6, 'F'))  
+
+
+#create your own application using at least 4 functions
+# Global variables
+inventory = {}
+PRODUCT_PRICE = 10  # Global constant for the default price per unit
+
+# Function to add a product to the inventory
+def add_product(name, quantity):
+    global inventory
+    if name in inventory:
+        inventory[name] += quantity
+    else:
+        inventory[name] = quantity
+    return f"Added {quantity} units of {name} to the inventory."
+
+# Function to remove a product from the inventory
+def remove_product(name, quantity):
+    global inventory
+    if name in inventory:
+        if inventory[name] >= quantity:
+            inventory[name] -= quantity
+            if inventory[name] == 0:
+                del inventory[name]
+            return f"Removed {quantity} units of {name} from the inventory."
+        else:
+            return f"Error: Not enough units of {name} in the inventory."
+    else:
+        return f"Error: {name} not found in the inventory."
+
+# Function to view the current inventory
+def view_inventory():
+    global inventory
+    return "Current Inventory:\n" + "\n".join([f"{name}: {quantity} units" for name, quantity in inventory.items()])
+
+# Function to calculate the total value of the inventory
+def calculate_total_value():
+    global inventory, PRODUCT_PRICE
+    total_value = sum([inventory[name] * PRODUCT_PRICE for name in inventory])
+    return f"Total inventory value: ${total_value}"
+
+# Example usage
+print(add_product("Widget A", 50))
+print(add_product("Widget B", 30))
+
+print(view_inventory())
+
+print(remove_product("Widget A", 20))
+print(remove_product("Widget C", 10))  # Trying to remove a non-existent product
+
+print(view_inventory())
+
+print(calculate_total_value())
+
