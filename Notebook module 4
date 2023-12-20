@@ -50,3 +50,96 @@ def calculate_area(radius):
     return PI * radius**2
 
 print(calculate_area(5))  # Output: 78.53975
+
+
+New updated notebook
+
+
+Introduction to Functions
+1. What is a Function?
+A function is a reusable block of code that performs a specific task. It helps in organizing code, improving readability, and promoting code reusability.
+
+Why Use a Function:
+Modularity: Functions allow breaking down complex problems into smaller, manageable parts.
+Reusability: Once defined, a function can be used multiple times.
+Abstraction: Functions abstract away implementation details, focusing on the task they perform.
+Usefulness in Programming:
+Functions are fundamental in programming as they facilitate code organization, reduce redundancy, and enhance code readability.
+
+2. What is the "main" Function?
+The "main" function is a convention in programming where the primary execution of a program starts. All code will be encapsulated within a main function, and the main function is called at the end of the program.
+
+Utilizing the "main" Function:
+python
+Copy code
+def main():
+    # Your program logic goes here
+
+# Call the main function
+main()
+3. Passing Variables into a Function
+In Python, variables can be passed to functions as arguments. There are two types: positional and keyword arguments.
+
+Examples:
+python
+Copy code
+# Positional arguments
+def greet(name, greeting):
+    print(f"{greeting}, {name}!")
+
+greet("Alice", "Hello")
+
+# Keyword arguments
+greet(greeting="Hi", name="Bob")
+4. Getting Values Back from a Function
+Functions can return values back to the caller. The returned value is stored in a variable or used directly in expressions.
+
+Examples:
+python
+Copy code
+# Returning a single value
+def square(x):
+    return x ** 2
+
+result = square(4)
+print(f"The square is: {result}")
+
+# Returning multiple values
+def add_and_multiply(a, b):
+    return a + b, a * b
+
+sum_result, product_result = add_and_multiply(3, 4)
+print(f"Sum: {sum_result}, Product: {product_result}")
+5. What is an IPO Chart Used For?
+An IPO (Input, Process, Output) chart is a visual representation of the flow of data through a system or algorithm.
+
+Examples:
+mathematica
+Copy code
+Input          Process              Output
+--------       ------------         ------
+Radius         Calculate Area       Area
+               and Circumference    Circumference
+6. What is Scope?
+Scope refers to the region of a program where a variable or constant is accessible. Global scope means the variable or constant can be accessed anywhere in the program.
+
+Examples:
+python
+Copy code
+# Global variable
+global_var = 10
+
+def example_function():
+    # Local variable
+    local_var = 5
+    print(f"Local variable: {local_var}")
+
+example_function()
+print(f"Global variable: {global_var}")
+Global Constant:
+python
+Copy code
+# Global constant
+PI = 3.14159
+Chapter Summary
+In this chapter, we covered the basics of functions, the importance of the "main" function, passing variables into functions, returning values from functions, IPO charts, and the concept of scope in programming. Practice writing code and experiment with these concepts to strengthen your understanding. Functions are a powerful tool in programming, offering modularity, reusability, and improved code organization.
